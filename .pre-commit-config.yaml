@@ -1,5 +1,0 @@
-repos:
--   repo: https://github.com/alexeygumirov/mkdocs-generator
-    rev: v0.1.0
-    hooks:
-    -   id: mkdocs-generator
