@@ -1,0 +1,13 @@
+[project]
+name = "mkdocs-generator"
+version = "0.1.0"
+description = "Generate mkdocs documentation from README.md files but searching for README.md files in subdirectories and copying them to .mkdocs/docs"
+authors = [{name = "Alexey Gumirov", email = "agumirov@amazon.de"}]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = ["mkdocs==1.5.3", "pyyaml==6.0.1", "python-frontmatter==1.0.0"]
+
+[project.scripts]
+mkdocs-generator = "mkdocs_generator.__main__:main"
+
