@@ -1,7 +1,0 @@
--   id: mkdocs-generate
-    name: generate mkdocs documentation
-    description: generates mkdocs documentation from markdown files
-    entry: mkdocs-generate
-    language: python
-    stages: [commit, push, manual]
-    types: [text]
