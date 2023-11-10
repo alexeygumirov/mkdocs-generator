@@ -2,6 +2,9 @@ import yaml
 
 
 class ConfigMKDOCS:
+    """
+    Class to generate configuration for this mkdocs generator and for mkdocs
+    """
     DEFAULT_CONFIG = {
         "mkdocsDir": "mkdocs",
         "mkdocsYAMLTemplate": {
@@ -72,10 +75,14 @@ class ConfigMKDOCS:
         """
         Print mkdocs generator settings to console in the YAML format
         """
-
         print(yaml.dump(self.DEFAULT_CONFIG, sort_keys=False))
 
     def save_mkdocs_config(self, mkdocs_yaml_file):
+        """
+        Save mkdocs config file
+
+        :param mkdocs_yaml_file: path to mkdocs.yml
+        """
         try:
             with open(mkdocs_yaml_file, "w") as f:
                 yaml.dump(self.mkdocs_yaml_template, f, sort_keys=False)
@@ -83,6 +90,11 @@ class ConfigMKDOCS:
             raise FileNotFoundError("Could not save mkdocs config file")
 
     def update_content_list(self, new_content):
+        """
+        Update content list in the navigation section of the mkdocs.yml
+
+        :param new_content: new content list
+        """
         old_content = self.mkdocs_yaml_template["nav"].copy()
         for item in old_content:
             if item.keys() == {"Content"}:

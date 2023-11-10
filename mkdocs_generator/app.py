@@ -1,3 +1,6 @@
+"""
+Functions to create mkdocs documentation from README.md files
+"""
 import os
 import shutil
 import frontmatter
