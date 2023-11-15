@@ -54,6 +54,7 @@ mkdocs-generate [--config CONFIG] [--print-config] [--backup] [--scan-dir SCAN_D
 - `--print-config, -p`: Print the default configuration settings.
 - `--backup, -b`: Backup the existing docs directory if it exists. If not provided, the existing directory will be deleted and a new one will be created.
 - `--scan-dir SCAN_DIR, -s SCAN_DIR`: Path to the directory to be scanned for documentation files. Default is the current directory.
+- `--section-name SECTION_NAME, -n SECTION_NAME`: Name of the section under 'Content' in mkdocs.yml. Default is "Documentation".
 - `--version`: Print the version of the script.
 
 ### Example
