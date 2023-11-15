@@ -17,6 +17,9 @@ Arguments:
     --scan-dir SCAN_DIR, -s SCAN_DIR
         Path to the directory to be scanned for documentation files. Default is the current directory.
 
+    --section-name SECTION_NAME, -n SECTION_NAME
+        Name of the section under 'Content' in mkdocs.yml. Default is "Documentation".
+
     --version
         Print the version of the script.
 
@@ -52,7 +55,20 @@ parser.add_argument(
     action="store_true",
     help="Backup existing docs directory if it exists",
 )
-parser.add_argument("--scan-dir", "-s", type=str, default="./", help="Path to scan")
+parser.add_argument(
+    "--scan-dir",
+    "-s",
+    type=str,
+    default="./",
+    help="Path to a directory to scan for files",
+)
+parser.add_argument(
+    "--section-name",
+    "-n",
+    type=str,
+    default="Documentation",
+    help="Name of the documentation section in mkdocs.yml",
+)
 parser.add_argument("--version", action="version", version=("%(prog)s " + __version__))
 
 
@@ -78,6 +94,10 @@ def main():
     # Create .mkdocs directory if it does not exist
     app.make_mkdocs_dir(config.mkdocs_dir)
 
+    # Set content section name
+    if args.section_name != "Documentation":
+        config.content_section_name = args.section_name
+
     # Backup .mkdocs/docs directory if it exists otherwise delete it and create a new one
     if args.backup:
         app.backup_mkdocs_dir(os.path.join(config.mkdocs_dir, "docs"))
@@ -101,7 +121,7 @@ def main():
     )
 
     # Create content list for mkdocs.yml
-    new_content = [{"VPC Modules": app.create_content_list()}]
+    new_content = [{config.content_section_name: app.create_content_list()}]
     config.update_content_list(new_content)
 
     # Write mkdocs.yml file

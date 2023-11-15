@@ -2,9 +2,6 @@ import yaml
 
 
 class ConfigMKDOCS:
-    """
-    Class to generate configuration for this mkdocs generator and for mkdocs
-    """
     DEFAULT_CONFIG = {
         "mkdocsDir": "mkdocs",
         "mkdocsYAMLTemplate": {
@@ -13,6 +10,7 @@ class ConfigMKDOCS:
             "theme": "readthedocs",
             "nav": [{"Home": "index.md"}, {"About": "about.md"}, {"Content": []}],
         },
+        "contentSectionName": "Documentation",
         "indexFileContent": """# Index
 
     This is the mkdocs generated documentation site.""",
@@ -39,6 +37,7 @@ class ConfigMKDOCS:
                 {"Content": []},
             ],
         }
+        self.content_section_name = "Documentation"
         self.index_file_content = """# Index
 
     This is the mkdocs generated documentation site."""
@@ -61,28 +60,35 @@ class ConfigMKDOCS:
         except FileNotFoundError:
             config = self.DEFAULT_CONFIG
 
-        self.mkdocs_dir = config.get("mkdocsDir", ".mkdocs")
-        self.mkdocs_yaml_template = config.get("mkdocsYAMLTemplate")
-        self.index_file_content = config.get("indexFileContent")
-        self.about_file_content = config.get("aboutFileContent")
-        self.doc_file_name = config.get("docFileName", "README.md")
-        self.example_data_sub_dirs = config.get(
-            "exampleDataSubDirs", ["image", "images", "example", "examples"]
+        self.mkdocs_dir = config.get("mkdocsDir", self.DEFAULT_CONFIG["mkdocsDir"])
+        self.mkdocs_yaml_template = config.get(
+            "mkdocsYAMLTemplate", self.DEFAULT_CONFIG["mkdocsYAMLTemplate"]
         )
-        self.scan_dir = config.get("scanDir", "./")
+        self.content_section_name = config.get(
+            "contentSectionName", self.DEFAULT_CONFIG["contentSectionName"]
+        )
+        self.index_file_content = config.get(
+            "indexFileContent", self.DEFAULT_CONFIG["indexFileContent"]
+        )
+        self.about_file_content = config.get(
+            "aboutFileContent", self.DEFAULT_CONFIG["aboutFileContent"]
+        )
+        self.doc_file_name = config.get(
+            "docFileName", self.DEFAULT_CONFIG["docFileName"]
+        )
+        self.example_data_sub_dirs = config.get(
+            "exampleDataSubDirs", self.DEFAULT_CONFIG["exampleDataSubDirs"]
+        )
+        self.scan_dir = config.get("scanDir", self.DEFAULT_CONFIG["scanDir"])
 
     def print_generator_config(self):
         """
         Print mkdocs generator settings to console in the YAML format
         """
+
         print(yaml.dump(self.DEFAULT_CONFIG, sort_keys=False))
 
     def save_mkdocs_config(self, mkdocs_yaml_file):
-        """
-        Save mkdocs config file
-
-        :param mkdocs_yaml_file: path to mkdocs.yml
-        """
         try:
             with open(mkdocs_yaml_file, "w") as f:
                 yaml.dump(self.mkdocs_yaml_template, f, sort_keys=False)
@@ -90,11 +96,6 @@ class ConfigMKDOCS:
             raise FileNotFoundError("Could not save mkdocs config file")
 
     def update_content_list(self, new_content):
-        """
-        Update content list in the navigation section of the mkdocs.yml
-
-        :param new_content: new content list
-        """
         old_content = self.mkdocs_yaml_template["nav"].copy()
         for item in old_content:
             if item.keys() == {"Content"}:

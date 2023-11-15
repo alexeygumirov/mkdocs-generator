@@ -1,6 +1,3 @@
-"""
-Functions to create mkdocs documentation from README.md files
-"""
 import os
 import shutil
 import frontmatter
@@ -13,6 +10,8 @@ def find_readme_files(directory: str = "./", file_name: str = "README.md") -> li
     :param directory: directory to search (default: current directory)
 
     :param file_name: name of file to search (default: README.md)
+
+    :return: list of files with name README.md
     """
     list_of_files = []
     for root, dirs, files in os.walk(directory):
@@ -81,6 +80,8 @@ def create_content_list(dir: str = "mkdocs/docs", file_name: str = "README.md") 
     :param dir: directory name (default: mkdocs/docs)
 
     :param file_name: name of file to search (default: README.md)
+
+    :return: list of dictionaries with title and path to README.md files
     """
     content_list = []
     readme_files = find_readme_files(dir, file_name)
