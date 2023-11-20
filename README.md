@@ -47,7 +47,7 @@ pip install mkdocs-generate/.
 ## Parameters
 
 ```
-mkdocs-generate [--config CONFIG] [--print-config] [--backup] [--scan-dir SCAN_DIR] [--version]
+mkdocs-generate [--config CONFIG] [--print-config] [--backup] [--scan-dir SCAN_DIR] [--section-name SECTION_NAME] [--version]
 ```
 
 - `--config CONFIG, -c CONFIG`: Path to a YAML file with configuration settings. If not provided, default settings will be used.
@@ -65,7 +65,7 @@ mkdocs-generate -c generate_config.yml -b -s ./tf-modules
 
 ## Version
 
-0.1.0
+0.1.4
 
 ## License
 
